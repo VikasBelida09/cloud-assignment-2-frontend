@@ -1,0 +1,19 @@
+.registration{
+    height:100vh;
+    width:100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.registration-form{
+    height:560px;
+    width:400px;
+    border:0.5px solid black;
+    padding:30px;
+    border-radius: 5px;
+}
+.login-link{
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+}
