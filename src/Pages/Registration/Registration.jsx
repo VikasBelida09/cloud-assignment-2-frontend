@@ -24,9 +24,18 @@ const Registration = () => {
     email: "",
     firstname: "",
     lastname: "",
+    file:null
   });
   const navigate = useNavigate();
   const handleChange = (e) => {
+    if(e.target.name==='file'){
+      setUserDetails({
+        ...userDetails,
+        [e.target.name]:e.target.files[0]
+      })
+      console.log(e.target.files[0])
+      return;
+    }
     setUserDetails({
       ...userDetails,
       [e.target.name]: e.target.value,
@@ -34,14 +43,16 @@ const Registration = () => {
   };
   const onClick = (e) => {
     e.preventDefault();
-    console.log(userDetails);
-    const { firstname, lastname, password, email, username } = userDetails;
+    const { firstname, lastname, password, email, username,file } = userDetails;
     const formData = new FormData();
     formData.append("firstname", firstname);
     formData.append("lastname", lastname);
     formData.append("email", email);
     formData.append("passwd", password);
     formData.append("username", username);
+    formData.append("file",file);
+    formData.append("filename",file.name);
+    console.log(formData)
     registerUser(formData)
       .then((data) => {
         return data.json();
@@ -105,6 +116,14 @@ const Registration = () => {
             onChange={handleChange}
             value={userDetails.password}
             name="password"
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicFile">
+          <Form.Label>File</Form.Label>
+          <Form.Control
+            type="file"
+            onChange={handleChange}
+            name="file"
           />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={onClick}>
